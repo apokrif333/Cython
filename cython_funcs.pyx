@@ -1,4 +1,5 @@
 import cython
+import math
 
 # https://towardsdatascience.com/use-cython-to-get-more-than-30x-speedup-on-your-python-code-f6cb337919b6
 """ Types in Cython
@@ -24,21 +25,14 @@ For the functions we have:
 def test_py(x):
     y = 1
     for i in range(1, x+1):
-        y *= i
+        y += i / 200
     return y
 
 
-cdef extern from "header_int128.h":
-    # this is WRONG, as this would be a int64. it is here
-    # just to let cython pass the first step, which is generating
-    # the .c file.
-    ctypedef unsigned long long int128
-
-
 # Cython function
-cpdef long long test_pyx(int x):
-    cdef long long y = 1
-    cdef long long i
+cpdef float test_pyx(int x):
+    cdef float y = 1
+    cdef float i
     for i in range(1, x+1):
-        y *= i
+        y += i / 200
     return y

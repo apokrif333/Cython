@@ -1,7 +1,14 @@
 import cython_funcs
 import time
 
-number = 25
+number = 2_000_000
+
+y = 1
+for i in range(1, 200+1):
+    y = (y * i) ** (1 / 2)
+
+print(y)
+
 
 start = time.time()
 print(cython_funcs.test_py(number))
